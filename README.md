@@ -43,6 +43,6 @@ python2.7 bin/clean_gen.py \\
     -specific_project auth \\
     -adapter mysql,couchbase \\
     -domain user \\
-    -handler user_handler
+    -handler user_handler \\
     -flask
 ```
