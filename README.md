@@ -9,20 +9,18 @@ This program is responsible for automatic template generation for Clean Architec
   - Give a parent project name (`changelog`)
   - Give a specific project name (`auth`)
   - The above will generate:
-    - ```
-    `~/changelog-api-auth/`
-      `/lib/`
-        `__init__.py`
-        `/changelog/`
-          `__init__.py`
-          `/auth/`
-            `__init__.py`
-            `adapters.py`
-            `application.py`
-            `domain.py`
-            `handlers.py`
-            `main.py`
-      ```
+    - `~/changelog-api-auth/`
+      - `/lib/`
+        - `__init__.py`
+        - `/changelog/`
+          - `__init__.py`
+          - `/auth/`
+            - `__init__.py`
+            - `adapters.py`
+            - `application.py`
+            - `domain.py`
+            - `handlers.py`
+            - `main.py`
 
 ### Optional
 - Create **empty** adapter classes for all given adapter args.
