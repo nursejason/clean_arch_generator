@@ -37,7 +37,7 @@ This program is responsible for automatic template generation for Clean Architec
 #### Args
 
 ```python
-python2.7 main.py\\
+python2.7 bin/clean_gen.py\\
     -base_dir ~/changelog-api-auth \\
     -parent_project changelog \\
     -specific_project auth \\
