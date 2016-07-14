@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-sys.path.append(os.path.realpath('..'))
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '/../'))
 from clean_arch_generator.main import main
 
 if __name__ == "__main__":
@@ -21,7 +21,7 @@ if __name__ == "__main__":
                         dest="handler", help="Handler classes", default=[])
     parser.add_argument("-flask", action="store_true",
                         dest="flask", help="Add Flask API bootstrapping")
-    parser.add_argument("-new", action="store_true",
+    parser.add_argument("-new", action="store_false",
                         dest="new", help="Create new directory")
     args = parser.parse_args()
     main(**args.__dict__)
