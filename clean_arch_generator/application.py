@@ -24,13 +24,20 @@ def create_project_dir(context, base_repo, parent_project, child_project):
     return path
 
 def create_project_files(context, base_repo, parent_project, child_project):
+    print 'Creating files in directories'
     files = ['domain.py', 'adapters.py', 'handlers.py',
              'application.py', 'main.py', '__init__.py']
-    path = '%s/lib/%s/' % (base_repo, parent_project)
+
+    path = '%s/lib/' % base_repo
+    context.touch_file(path, '__init__.py')
+    path += '/' + parent_project + '/'
+    context.touch_file(path, '__init__.py')
+
     if child_project is not None:
         path = path + '%s/' % child_project
     for file_ in files:
         context.touch_file(path, file_)
+
 
 def add_adapter_classes(project_path, class_list):
     add_classes(project_path, class_list, 'adapters')
