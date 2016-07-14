@@ -1,19 +1,28 @@
+""" App knowledge needed to create a project in Clean stlye """
 
-def create_clean_project(**kwargs):
+def create_clean_project(context, **kwargs):
+    """ Main driver to create a clean project """
+    lib_path = kwargs['base']
     if kwargs.get('new', True):
-        create_project_dir(kwargs['base'], kwargs['parent'], kwargs['child'])
+        lib_path = create_project_dir(
+            context, kwargs['base'], kwargs['parent'], kwargs['child'])
 
     create_project_files(kwargs['base'], kwargs['parent'], kwargs['child'])
 
-    path = '%s/lib/%s/%s/' % (kwargs['base'], kwargs['parent'], kwargs['child'])
-    add_adapter_classes(path, kwargs.get('adapter', []))
-    add_handler_classes(path, kwargs.get('handler', []))
-    add_domain_classes(path, kwargs.get('domain', []))
+    add_adapter_classes(lib_path, kwargs.get('adapter', []))
+    add_handler_classes(lib_path, kwargs.get('handler', []))
+    add_domain_classes(lib_path, kwargs.get('domain', []))
 
-def create_project_dir(base_repo, parent_project, child_project):
-    pass
+def create_project_dir(context, base_repo, parent_project, child_project):
+    """ Create the new project directory """
+    path = '%s/lib/%s/' % (base_repo, parent_project)
+    if child_project is not None:
+        path = path + '%s/' % child_project
+    context.create_directory(path)
 
-def create_project_files(base_repo, parent_project, child_project):
+    return path
+
+def create_project_files(context, base_repo, parent_project, child_project):
     pass
 
 def add_adapter_classes(project_path, class_list):
@@ -27,14 +36,3 @@ def add_domain_classes(project_path, class_list):
 
 def add_classes(project_path, class_list, class_file):
     pass
-
-#def validate_args(**kwargs):
-#    domain
-#    adapter
-#    handler
-#
-#    base
-#    child
-#    parent
-#
-#    flask
