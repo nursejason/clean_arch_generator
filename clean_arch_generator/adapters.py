@@ -14,3 +14,8 @@ class OsAdapter(object):
         if not os.path.exists(filep):
             print "created file %s" % file_name
             open(filep, 'a').close()
+
+    @staticmethod
+    def write_text(text, filename):
+        with open(filename, "a") as file_:
+            file_.write(text)
