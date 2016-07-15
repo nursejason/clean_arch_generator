@@ -3,10 +3,12 @@ from clean_arch_generator.domain import create_class_string
 
 def create_clean_project(context, **kwargs):
     """ Main driver to create a clean project """
-    lib_path = kwargs['base']
+    lib_path = _get_lib_path(kwargs.get('new', True),
+                             kwargs['base'], kwargs['parent'], kwargs['child'])
+    conf_path = _get_conf_path(kwargs['base'])
     if kwargs.get('new', True):
-        lib_path = create_project_dir(
-            context, kwargs['base'], kwargs['parent'], kwargs['child'])
+        create_project_dir(context, lib_path, conf_path)
+        create_conf_files(context, conf_path)
 
     create_project_files(context, kwargs['base'], kwargs['parent'], kwargs['child'])
 
@@ -14,15 +16,16 @@ def create_clean_project(context, **kwargs):
     add_handler_classes(context, lib_path, kwargs.get('handler', []))
     add_domain_classes(context, lib_path, kwargs.get('domain', []))
 
-def create_project_dir(context, base_repo, parent_project, child_project):
-    """ Create the new project directory """
-    path = '%s/lib/%s/' % (base_repo, parent_project)
-    if child_project is not None:
-        path = path + '%s/' % child_project
-    print 'Creating directories. New lib path %s.' % path
+def create_project_dir(context, path, conf_path):
+    """ Create the new project directory and conf dir """
+    print 'Creating directories:'
+    print 'New lib path %s.' % path
     context.create_directory(path)
 
-    return path
+    conf_path = '%s/conf' % base_repo
+    print 'Creating conf at %s' % conf_path
+    context.create_directory(conf_path)
+
 
 def create_project_files(context, base_repo, parent_project, child_project):
     print 'Creating files in directories'
@@ -38,10 +41,9 @@ def create_project_files(context, base_repo, parent_project, child_project):
         path = path + '%s/' % child_project
     for file_ in files:
         context.touch_file(path, file_)
-    # TODO
-    ## Not all init files are being created
-    ## Conf dir
-    ## Conf files
+
+def create_conf_files(context, conf_path):
+    context.touch_file(conf_path, 'config.py')
 
 def add_adapter_classes(context, project_path, class_list):
     add_classes(context, project_path, class_list, 'adapters')
@@ -65,3 +67,14 @@ def add_classes(context, project_path, class_list, class_file):
         file_string += create_class_string(class_)
 
     context.write_text(file_string, filename)
+
+def _get_lib_path(new_project, base_repo, parent_project, child_project):
+    lib_path = base_repo
+    if new_project:
+        lib_path = '%s/lib/%s/' % (base_repo, parent_project)
+        if child_project is not None:
+            lib_path = lib_path + '%s/' % child_project
+    return lib_path
+
+def _get_conf_path(base_repo):
+    return '%s/conf' % base_repo
