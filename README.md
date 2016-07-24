@@ -41,11 +41,12 @@ This program is responsible for automatic template generation for Clean Architec
 
 ```bash
 python2.7 bin/clean_gen.py \\
-    -base_dir ~/changelog-api-auth \\
-    -parent_project changelog \\
-    -specific_project auth \\
-    -adapter mysql,couchbase \\
-    -domain user \\
-    -handler user_handler \\
+    --base_dir ~/changelog-api-auth \\
+    --parent_project changelog \\
+    --specific_project auth \\
+    --adapter mysql,couchbase \\
+    --domain user \\
+    --handler user_handler \\
+    -new
     -flask
 ```
