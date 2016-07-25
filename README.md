@@ -7,7 +7,7 @@ This program is responsible for automatic template generation for Clean Architec
   - **Flag to insert into existing repo at X dir**
   - Give a base repo dir (`~/changelog-api-auth/`)
   - Give a parent project name (`changelog`)
-  - Give a specific project name (`auth`)
+  - Give a child project name (`auth`)
   - The above will generate:
 
 ```
@@ -42,8 +42,8 @@ This program is responsible for automatic template generation for Clean Architec
 ```bash
 python2.7 bin/clean_gen.py \\
     --base_dir ~/changelog-api-auth \\
-    --parent_project changelog \\
-    --specific_project auth \\
+    --parent changelog \\
+    --child auth \\
     --adapter mysql,couchbase \\
     --domain user \\
     --handler user_handler \\
